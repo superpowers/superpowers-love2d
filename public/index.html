@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Superpowers LÖVE</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        text-align: center;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        background: #eee;
+      }
+      
+      .status {
+        color: #444;
+        font-size: 24px;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="status">Looking for LÖVE...</div>
+
+    <div class="where-is-love" hidden>
+      <p class="find-love"><button>Set LÖVE executable path</button></p>
+      <p class="get-love">Don't have LÖVE installed? <a href="https://love2d.org/">Download it now</a>.</p>
+    </div>
+    
+    <div class="must-use-app" hidden>
+      Superpowers LÖVE games can only be started from the app,
+      they can't run directly in the browser.
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>

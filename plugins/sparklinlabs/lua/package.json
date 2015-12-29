@@ -1,0 +1,12 @@
+{
+  "name": "superpowers-love2d-sparklinlabs-lua-plugin",
+  "description": "Lua plugin for Superpowers LÖVE, the collaborative game maker",
+  "version": "1.0.0",
+  "license": "ISC",
+  "scripts": {
+    "build": "gulp --gulpfile=../../../../../scripts/pluginGulpfile.js --cwd=."
+  },
+  "dependencies": {
+    "operational-transform": "^0.2.3"
+  }
+}

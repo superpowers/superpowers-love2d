@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    link(rel="stylesheet",href="/styles/reset.css")
+    link(rel="stylesheet",href="/styles/perfectResize.css")
+    link(rel="stylesheet",href="/styles/dialogs.css")
+    link(rel="stylesheet",href="/styles/properties.css")
+    link(rel="stylesheet",href="index.css")
+
+  body
+    .main
+      .no-preview= t("common:states.loading")
+
+    .sidebar
+      table.properties
+        tr
+          th= t("blobEditor:sidebar.settings.file")
+          td
+            button.upload(disabled)= t("common:actions.upload")
+            form(style="display: none")
+              input.file-select(type="file")
+            button.download(disabled)= t("common:actions.download")
+        tr
+          th= t("blobEditor:sidebar.settings.mediaType")
+          td
+            input.mediaType(type="text",readonly)
+        tr
+          th= t("blobEditor:sidebar.settings.filename")
+          td
+            input.filename(type="text",readonly)
+
+    script(src="/SupCore.js")
+    script(src="/SupClient.js")
+    script(src="../../data.js")
+    script(src="index.js")

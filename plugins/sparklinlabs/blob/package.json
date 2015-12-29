@@ -1,0 +1,10 @@
+{
+  "name": "superpowers-web-sparklinlabs-blob-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Elisée MAURER <elisee@sparklinlabs.com>",
+  "license": "ISC",
+  "scripts": {
+    "build": "gulp --gulpfile=../../../../../scripts/pluginGulpfile.js --cwd=."
+  }
+}

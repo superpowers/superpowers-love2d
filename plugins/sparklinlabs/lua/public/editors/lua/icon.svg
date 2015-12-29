@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="icon.svg">
+  <defs
+     id="defs24" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1680"
+     inkscape:window-height="1028"
+     id="namedview22"
+     showgrid="false"
+     inkscape:zoom="1"
+     inkscape:cx="-46.935082"
+     inkscape:cy="12.750167"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <metadata
+     id="metadata6">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     d="M 21.687777,7.0641439 A 10.875147,10.87507 0 1 1 17.920907,2.8806304"
+     style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-dasharray:3.76086733;stroke-dashoffset:0;stroke-miterlimit:4"
+     id="path8"
+     inkscape:connector-curvature="0" />
+  <ellipse
+     cx="11.997906"
+     cy="12.0013"
+     style="fill:#000080"
+     id="circle10"
+     rx="8.4114571"
+     ry="8.411397" />
+  <ellipse
+     cx="15.482079"
+     cy="8.5171528"
+     style="fill:#ffffff"
+     id="circle12"
+     rx="2.4636662"
+     ry="2.4636486" />
+  <ellipse
+     cx="20.409363"
+     cy="3.5899034"
+     id="circle14"
+     style="fill:#000080"
+     rx="2.46369"
+     ry="2.4636724" />
+</svg>
