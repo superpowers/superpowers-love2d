@@ -3,7 +3,6 @@ public/index.js
 public/plugins.json
 public/templates.json
 **/node_modules
-plugins/sparklinlabs/textEditorWidget/public/codemirror
 plugins/**/*.js
 plugins/**/*.html
 plugins/**/*.css
