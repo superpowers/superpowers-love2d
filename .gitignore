@@ -1,8 +1,8 @@
-player/src/**/*.js
+**/node_modules
+player/**/*.js
 public/index.js
 public/plugins.json
 public/templates.json
-**/node_modules
-plugins/**/*.js
 plugins/**/*.html
 plugins/**/*.css
+plugins/**/*.js
