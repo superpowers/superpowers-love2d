@@ -2,6 +2,8 @@
 
 Make [LÖVE 2D](https://love2d.org/) games in live collaboration with [Superpowers](http://superpowers-html5.com/).
 
+![](http://i.imgur.com/yLybycP.gif)
+
 ## How to install
 
 For now, you'll need to build it from source. See [Building Superpowers](http://docs.sparklinlabs.com/en/development/building-superpowers).
