@@ -29,7 +29,7 @@ export const defaultExtensions: { [mediaType: string]: string; } = {
 };
 
 export default class BlobAsset extends SupCore.Data.Base.Asset {
-  static schema: SupCore.Data.Base.Schema = {
+  static schema: SupCore.Data.Schema = {
     mediaType: { type: "string" },
     buffer: { type: "buffer" }
   };
