@@ -1,7 +1,7 @@
 {
   "name": "superpowers-love2d",
   "description": "Löve2D system for Superpowers",
-  "version": "1.0.0",
+  "version": "0.2",
   "license": "ISC",
   "repository": {
     "type": "git",
