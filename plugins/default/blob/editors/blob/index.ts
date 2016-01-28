@@ -1,11 +1,11 @@
 import BlobAsset, { defaultExtensions } from "../../data/BlobAsset";
 
 /* tslint:disable */
-let PerfectResize = require("perfect-resize");
+let ResizeHandle = require("resize-handle");
 /* tslint:enable */
 
 // Setup resizable panes
-new PerfectResize(document.querySelector(".sidebar"), "right");
+new ResizeHandle(document.querySelector(".sidebar"), "right");
 
 let socket: SocketIOClient.Socket;
 let projectClient: SupClient.ProjectClient;
