@@ -1,11 +1,9 @@
 import BlobAsset, { defaultExtensions } from "../../data/BlobAsset";
 
-/* tslint:disable */
-let ResizeHandle = require("resize-handle");
-/* tslint:enable */
+import * as ResizeHandle from "resize-handle";
 
 // Setup resizable panes
-new ResizeHandle(document.querySelector(".sidebar"), "right");
+new ResizeHandle(document.querySelector(".sidebar") as HTMLDivElement, "right");
 
 let socket: SocketIOClient.Socket;
 let projectClient: SupClient.ProjectClient;
