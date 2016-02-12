@@ -1,5 +1,7 @@
 # Superpowers LÖVE
 
+[![Build Status](https://travis-ci.org/superpowers/superpowers-love2d.svg?branch=master)](https://travis-ci.org/superpowers/superpowers-love2d)
+
 Make [LÖVE 2D](https://love2d.org/) games in live collaboration with [Superpowers](http://superpowers-html5.com/).
 
 ![](http://i.imgur.com/yLybycP.gif)
