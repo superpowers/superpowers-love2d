@@ -156,7 +156,7 @@ function onDownloadBlob() {
     validationLabel: SupClient.i18n.t("common:actions.download")
   };
 
-  if (SupClient.isApp) {
+  if (SupApp != null) {
     triggerDownload(options.initialValue);
   } else {
     /* tslint:disable:no-unused-expression */
