@@ -1,7 +1,5 @@
 import LuaAsset from "../../data/LuaAsset";
 
-SupClient.setupHotkeys();
-
 let socket: SocketIOClient.Socket;
 let projectClient: SupClient.ProjectClient;
 let editor: TextEditorWidget;

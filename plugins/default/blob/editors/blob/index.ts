@@ -11,8 +11,6 @@ let asset: BlobAsset;
 let outputFilename: string;
 
 SupClient.i18n.load([{ root: `${window.location.pathname}/../..`, name: "blobEditor" }], () => {
-  SupClient.setupHotkeys();
-
   socket = SupClient.connect(SupClient.query.project);
   socket.on("welcome", onWelcome);
   socket.on("disconnect", SupClient.onDisconnected);
