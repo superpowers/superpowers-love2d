@@ -2,6 +2,8 @@ import * as mkdirp from "mkdirp";
 import * as fs from "fs";
 import * as path from "path";
 
+type UploadCallback = SupCore.Data.Base.ErrorCallback & ((err: string, ack: any, mediaType: string, buffer: Buffer) => void);
+
 interface BlobAssetPub {
   mediaType: string;
   buffer: Buffer|ArrayBuffer;
@@ -91,14 +93,14 @@ export default class BlobAsset extends SupCore.Data.Base.Asset {
     mkdirp(parentPath, () => { fs.writeFile(outputPath, this.pub.buffer, callback); });
   }
 
-  server_upload(client: any, mediaType: string, buffer: Buffer, callback: (err: string, mediaType?: string, buffer?: Buffer) => any) {
+  server_upload(client: any, mediaType: string, buffer: Buffer, callback: UploadCallback) {
     if (typeof mediaType !== "string" || mediaType.length === 0) { callback("mediaType must be a string"); return; }
     if (!(buffer instanceof Buffer)) { callback("buffer must be an ArrayBuffer"); return; }
 
     this.pub.mediaType = mediaType;
     this.pub.buffer = buffer;
 
-    callback(null, mediaType, buffer);
+    callback(null, null, mediaType, buffer);
     this.emit("change");
   }
 

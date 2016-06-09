@@ -17,6 +17,9 @@ if ((<any>global).window == null) {
   path = serverRequire("path");
 }
 
+type EditTextCallback = SupCore.Data.Base.ErrorCallback & ((err: string, ack: any, operationData: OperationData, revisionIndex: number) => void);
+type ApplyDraftChangedCallback = SupCore.Data.Base.ErrorCallback;
+
 interface LuaAssetPub {
   text: string;
   draft: string;
@@ -92,7 +95,7 @@ export default class LuaAsset extends SupCore.Data.Base.Asset {
     mkdirp(parentPath, () => { fs.writeFile(outputPath, text, callback); });
   }
 
-  server_editText(client: any, operationData: OperationData, revisionIndex: number, callback: (err: string, operationData?: any, revisionIndex?: number) => any) {
+  server_editText(client: any, operationData: OperationData, revisionIndex: number, callback: EditTextCallback) {
     if (operationData.userId !== client.id) { callback("Invalid client id"); return; }
 
     let operation = new OT.TextOperation();
@@ -104,7 +107,7 @@ export default class LuaAsset extends SupCore.Data.Base.Asset {
     this.pub.draft = this.document.text;
     this.pub.revisionId++;
 
-    callback(null, operation.serialize(), this.document.getRevisionId() - 1);
+    callback(null, null, operation.serialize(), this.document.getRevisionId() - 1);
 
     if (!this.hasDraft) {
       this.hasDraft = true;
@@ -121,7 +124,7 @@ export default class LuaAsset extends SupCore.Data.Base.Asset {
     this.pub.revisionId++;
   }
 
-  server_applyDraftChanges(client: any, callback: (err: string) => any) {
+  server_applyDraftChanges(client: any, callback: ApplyDraftChangedCallback) {
     this.pub.text = this.pub.draft;
 
     callback(null);
