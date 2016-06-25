@@ -9,8 +9,7 @@ before_script:
 - cd superpowers-core
 - mkdir systems
 - mv ../superpowers-love2d systems/love2d
-- cd systems
-- ls -l
+- ls -l systems
 cache:
   directories:
   - node_modules
@@ -23,3 +22,15 @@ notifications:
     on_success: change
     on_failure: always
     on_start: never
+before_deploy:
+- npm run package love2d
+deploy:
+  provider: releases
+  api_key:
+    secure: nuwuISpKmHHuko80RRhWyYtIHz9rSOgzm4OdrnQymrCQ4T0dtS4rmUn0uspY3GvJjFJHFjxZMcF6kO9aPiYGWPaPXrH3kbNvcZ7sAz2+N1RdJxjbpDh/2Uv9U4zaydCSvT6uR/W9+RnPKpj2lwcbMkFIQdB898L+rBul5Hjbp5/BB1idVLWt8HRf7aeJqst4rUh7Tz3RNJItFONNUyM4/YnG9upkodPlCvUtW0RQUqT+Mc1glGK8g35SLDl49EbUf1ECavon5+vA0kT6a6r9EuRxjeCZjnj7Z65yBPz4JnhSdCEWzGQqd3Zw7aIShSLF1flzA2+USXyVRegJkqM9vPLwObjIj5KcF8QElkm7PvmLzu2zdUompE25bKHbLlD0q+FXmxuL/5EcgKhAH50rg2uz1kdypQnXAu3c+ubjSFbQtZJ2TcdEbRzSzIU06u/RmqwL79KlXgwOOJnego6swThryBUtFI5GcNwnJQh+vmyDeKQroZC1pKkv21hxPEeXxTZMgREnNEKFFGqNT3PlqNuq0eq9uc69Ci63fvCjJYRVSeixNCiAUtR/891ROUx64vgP7n5KeBFXsljfXQkOZNYdrSXp0jgI/MwcUiqDpAaaH6lyB41MLGWI9FJnA2SnXoWCCCQA6/NV0Tr0qPOMskNddzhCSyThrfhG7XxGL/I=
+  file_glob: true
+  file: "packages/superpowers-love2d-*.zip"
+  skip_cleanup: true
+  on:
+    repo: superpowers/superpowers-love2d
+    tags: true
