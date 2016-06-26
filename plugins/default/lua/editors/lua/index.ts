@@ -9,7 +9,7 @@ socket = SupClient.connect(SupClient.query.project);
 socket.on("welcome", onWelcome);
 socket.on("disconnect", SupClient.onDisconnected);
 
-function onWelcome(clientId: number) {
+function onWelcome(clientId: string) {
   projectClient = new SupClient.ProjectClient(socket);
   setupEditor(clientId);
 
@@ -35,7 +35,7 @@ function onAssetEdited(assetId: string, command: string, ...args: any[]) {
   }
 }
 
-function setupEditor(clientId: number) {
+function setupEditor(clientId: string) {
   let textArea = <HTMLTextAreaElement>document.querySelector(".text-editor");
   editor = new TextEditorWidget(projectClient, clientId, textArea, {
     mode: "text/x-lua",
