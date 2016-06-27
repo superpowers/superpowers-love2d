@@ -10,7 +10,7 @@ import * as dummy_http from "http";
 let isApp = window.navigator.userAgent.indexOf("Electron") !== -1;
 let nodeRequire: NodeRequire;
 
-let electron: GitHubElectron.Electron;
+let electron: Electron.ElectronMainAndRenderer;
 let fs: typeof dummy_fs;
 let path: typeof dummy_path;
 let http: typeof dummy_http;
