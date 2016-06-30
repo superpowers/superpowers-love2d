@@ -89,14 +89,19 @@ export default class LuaAsset extends SupCore.Data.Base.Asset {
     });
   }
 
-  publish(buildPath: string, callback: (err: Error) => any) {
+  serverExport(buildPath: string, callback: (err: Error, writtenFiles: string[]) => void) {
     let pathFromId = this.server.data.entries.getPathFromId(this.id);
     if (pathFromId.lastIndexOf(".lua") === pathFromId.length - 4) pathFromId = pathFromId.slice(0, -4);
-    let outputPath = `${buildPath}/assets/${pathFromId}.lua`;
-    let parentPath = outputPath.slice(0, outputPath.lastIndexOf("/"));
+    const filePath = `${pathFromId}.lua`;
+    const outputPath = `${buildPath}/files/${filePath}`;
 
-    let text = this.pub.text;
-    mkdirp(parentPath, () => { fs.writeFile(outputPath, text, callback); });
+    const text = this.pub.text;
+    mkdirp(path.dirname(outputPath), () => {
+      fs.writeFile(outputPath, text, (err) => {
+        if (err != null) { callback(err, null); return; }
+        callback(null, [ filePath ]);
+      });
+    });
   }
 
   server_editText(client: any, operationData: OperationData, revisionIndex: number, callback: EditTextCallback) {

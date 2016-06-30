@@ -79,18 +79,22 @@ export default class BlobAsset extends SupCore.Data.Base.Asset {
     });
   }
 
-  publish(buildPath: string, callback: (err: Error) => any) {
-    if (this.pub.buffer == null) { callback (null); return; }
+  serverExport(buildPath: string, callback: (err: Error, writtenFiles: string[]) => void) {
+    if (this.pub.buffer == null) { callback (null, []); return; }
 
-    let pathFromId = this.server.data.entries.getPathFromId(this.id);
-    if (pathFromId.lastIndexOf(".") <= pathFromId.lastIndexOf("/")) {
+    let filePath = this.server.data.entries.getPathFromId(this.id);
+    if (filePath.lastIndexOf(".") <= filePath.lastIndexOf("/")) {
       // No dots in the name, try adding a default extension
-      pathFromId += `.${defaultExtensions[this.pub.mediaType]}`;
+      filePath += `.${defaultExtensions[this.pub.mediaType]}`;
     }
 
-    let outputPath = `${buildPath}/assets/${pathFromId}`;
-    let parentPath = outputPath.slice(0, outputPath.lastIndexOf("/"));
-    mkdirp(parentPath, () => { fs.writeFile(outputPath, this.pub.buffer, callback); });
+    const outputPath = `${buildPath}/files/${filePath}`;
+    mkdirp(path.dirname(outputPath), () => {
+      fs.writeFile(outputPath, this.pub.buffer, (err) => {
+        if (err != null) callback(err, null);
+        callback(null, [ filePath ]);
+      });
+    });
   }
 
   server_upload(client: any, mediaType: string, buffer: Buffer, callback: UploadCallback) {
