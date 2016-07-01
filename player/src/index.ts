@@ -71,20 +71,18 @@ function downloadGame() {
   statusElt.textContent = "Downloading game...";
 
   SupApp.mktmpdir((err, createdFolderPath) => {
-    if (err != null) {
-      statusElt.textContent = `Could not create temporary folder: ${err.message}`;
-      return;
-    }
+    if (err != null) { statusElt.textContent = `Could not create temporary folder: ${err.message}`; return; }
 
     tempFolderPath = createdFolderPath;
 
     supFetch(`${buildPath}files.json`, "json", (err, filesToDownload) => {
-      if (err != null) {
-        statusElt.textContent = `Could not load files list: ${err.message}`;
-        return;
-      }
+      if (err != null) { statusElt.textContent = `Could not load files list: ${err.message}`; return; }
 
-      async.eachSeries(filesToDownload, downloadFile, () => { runGame(); });
+      async.each(filesToDownload, downloadFile, (err) => {
+        if (err != null) { statusElt.textContent = `Could not download all files: ${err.message}`; return; }
+
+        runGame();
+      });
     });
   });
 }
@@ -93,11 +91,11 @@ function downloadFile(filePath: string, callback: ErrorCallback) {
   const inputPath = `${window.location.origin}${buildPath}files/${filePath}`;
   const outputPath = path.join(tempFolderPath, filePath);
 
-  SupApp.mkdirp(path.dirname(outputPath), () => {
+  SupApp.mkdirp(path.dirname(outputPath), (err) => {
     supFetch(inputPath, "arraybuffer", (err, data) => {
-      SupApp.writeFile(outputPath, Buffer.from(data), (err) => {
-        callback(null);
-      });
+      if (err != null) { callback(err); return; }
+
+      SupApp.writeFile(outputPath, Buffer.from(data), callback);
     });
   });
 }
@@ -111,6 +109,7 @@ function runGame() {
     let failed = false;
     loveProcess.on("error", (err: Error) => {
       failed = true;
+      SupApp.getCurrentWindow().show();
       statusElt.textContent = `Could not start LÖVE: ${err.message}`;
       localStorage.removeItem("supLove2DPath");
     });
