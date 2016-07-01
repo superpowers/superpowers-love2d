@@ -95,7 +95,7 @@ function downloadFile(filePath: string, callback: ErrorCallback) {
     supFetch(inputPath, "arraybuffer", (err, data) => {
       if (err != null) { callback(err); return; }
 
-      SupApp.writeFile(outputPath, Buffer.from(data), callback);
+      SupApp.writeFile(outputPath, new Buffer(data), callback);
     });
   });
 }
