@@ -6,8 +6,6 @@ import * as querystring from "querystring";
 import supFetch from "../../../../SupClient/src/fetch";
 import * as path from "path";
 
-const isApp = window.navigator.userAgent.indexOf("Electron") !== -1;
-
 const statusElt = document.querySelector(".status") as HTMLDivElement;
 let tempFolderPath: string;
 
@@ -20,7 +18,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 function start() {
-  if (!isApp) {
+  if ((window as any).SupApp == null) {
     statusElt.textContent = "Can't run in browser";
     (document.querySelector(".must-use-app") as HTMLDivElement).hidden = false;
     return;
