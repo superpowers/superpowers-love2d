@@ -1,0 +1,13 @@
+{
+  "name": "superpowers-love2d-default-export-plugin",
+  "description": "Export plugin for Superpowers LÖVE, the collaborative game maker",
+  "version": "1.0.0",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superpowers/superpowers-love2d.git"
+  },
+  "scripts": {
+    "build": "gulp --gulpfile=../../../../../scripts/pluginGulpfile.js --cwd=."
+  }
+}

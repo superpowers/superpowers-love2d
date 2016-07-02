@@ -2,19 +2,17 @@
 
 import * as OT from "operational-transform";
 import * as mkdirp from "mkdirp";
-import * as dummy_fs from "fs";
-import * as dummy_path from "path";
+import * as path from "path";
 
+import * as dummy_fs from "fs";
 // Since we're doing weird things to the fs module,
 // the code won't browserify properly with brfs
 // so we'll only require them on the server-side
 let serverRequire = require;
 
 let fs: typeof dummy_fs;
-let path: typeof dummy_path;
 if ((<any>global).window == null) {
   fs = serverRequire("fs");
-  path = serverRequire("path");
 }
 
 type EditTextCallback = SupCore.Data.Base.ErrorCallback & ((err: string, ack: any, operationData: OperationData, revisionIndex: number) => void);
@@ -90,14 +88,21 @@ export default class LuaAsset extends SupCore.Data.Base.Asset {
   }
 
   serverExport(buildPath: string, callback: (err: Error, writtenFiles: string[]) => void) {
-    let pathFromId = this.server.data.entries.getPathFromId(this.id);
-    if (pathFromId.lastIndexOf(".lua") === pathFromId.length - 4) pathFromId = pathFromId.slice(0, -4);
-    const filePath = `${pathFromId}.lua`;
-    const outputPath = `${buildPath}/files/${filePath}`;
+    this.export(fs.writeFile, mkdirp, buildPath, this.server.data.entries.getPathFromId(this.id), callback);
+  }
+
+  clientExport(buildPath: string, filePath: string, callback: (err: Error, writtenFiles: string[]) => void) {
+    this.export(SupApp.writeFile, SupApp.mkdirp, buildPath, filePath, callback);
+  }
+
+  private export(writeFile: Function, mkdir: Function, buildPath: string, filePath: string, callback: (err: Error, writtenFiles: string[]) => void) {
+    if (filePath.lastIndexOf(".lua") === filePath.length - 4) filePath = filePath.slice(0, -4);
+    filePath += ".lua";
+    const outputPath = `${buildPath}/${filePath}`;
 
     const text = this.pub.text;
-    mkdirp(path.dirname(outputPath), () => {
-      fs.writeFile(outputPath, text, (err) => {
+    mkdir(path.dirname(outputPath), () => {
+      writeFile(outputPath, text, (err: Error) => {
         if (err != null) { callback(err, null); return; }
         callback(null, [ filePath ]);
       });

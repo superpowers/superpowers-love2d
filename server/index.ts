@@ -17,7 +17,7 @@ SupCore.system.serverBuild = (server: ProjectServer, buildPath: string, callback
 
   async.each(assetIdsToExport, (assetId, cb) => {
     server.data.assets.acquire(assetId, null, (err: Error, asset: ServerExportableAsset) => {
-      asset.serverExport(buildPath, (err, writtenFiles) => {
+      asset.serverExport(`${buildPath}/files`, (err, writtenFiles) => {
         server.data.assets.release(assetId, null);
 
         files = files.concat(writtenFiles);

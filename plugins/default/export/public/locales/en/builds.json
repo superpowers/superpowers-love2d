@@ -1,0 +1,12 @@
+{
+  "love2d": {
+    "title": "LÖVE Export",
+    "progress": "Exporting to ${path}... (${index}/${total})",
+    "doneWithErrors": "Encountered ${errors} errors while exporting ${total} elements to ${path}.",
+    "done": "Exported ${total} elements to ${path}.",
+
+    "errors": {
+      "exportFailed": "Failed to export ${path}."
+    }
+  }
+}

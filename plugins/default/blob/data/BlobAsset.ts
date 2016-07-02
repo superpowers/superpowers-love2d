@@ -80,17 +80,25 @@ export default class BlobAsset extends SupCore.Data.Base.Asset {
   }
 
   serverExport(buildPath: string, callback: (err: Error, writtenFiles: string[]) => void) {
+    this.export(fs.writeFile, mkdirp, buildPath, this.server.data.entries.getPathFromId(this.id), callback);
+  }
+
+  clientExport(buildPath: string, filePath: string, callback: (err: Error, writtenFiles: string[]) => void) {
+    this.export(SupApp.writeFile, SupApp.mkdirp, buildPath, filePath, callback);
+  }
+
+  private export(writeFile: Function, mkdir: Function, buildPath: string, filePath: string, callback: (err: Error, writtenFiles: string[]) => void) {
     if (this.pub.buffer == null) { callback (null, []); return; }
 
-    let filePath = this.server.data.entries.getPathFromId(this.id);
     if (filePath.lastIndexOf(".") <= filePath.lastIndexOf("/")) {
       // No dots in the name, try adding a default extension
       filePath += `.${defaultExtensions[this.pub.mediaType]}`;
     }
 
-    const outputPath = `${buildPath}/files/${filePath}`;
-    mkdirp(path.dirname(outputPath), () => {
-      fs.writeFile(outputPath, this.pub.buffer, (err) => {
+    const outputPath = `${buildPath}/${filePath}`;
+    mkdir(path.dirname(outputPath), () => {
+      const value =  this.pub.buffer instanceof ArrayBuffer ? new Buffer(this.pub.buffer) : this.pub.buffer;
+      writeFile(outputPath, value, (err: Error) => {
         if (err != null) callback(err, null);
         callback(null, [ filePath ]);
       });
