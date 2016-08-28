@@ -10,6 +10,13 @@ html
   body
     .text-editor-container
       textarea(disabled).text-editor
+    .status-pane
+      .header
+        .draft
+          button.save(title= t("scriptEditor:applyChanges"),data-hotkey="control+S")= t("common:actions.applyChanges")
+          span.label= t("scriptEditor:draft")
+          span  &mdash;
+        .info= t("common:states.loading")
 
     script(src="/SupCore.js")
     script(src="/SupClient.js")

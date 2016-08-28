@@ -1,10 +1,42 @@
-body
-  display flex
-  flex-direction column
-  flex 1
+body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 
-.text-editor-container
-  min-height 100px
+.text-editor-container {
+  min-height: 100px;
+}
 
-.CodeMirror .CodeMirror-overwrite .CodeMirror-cursor
-  border-left 8px solid rgba(86, 86, 232, 0.5)
+.CodeMirror .CodeMirror-overwrite .CodeMirror-cursor {
+  border-left: 8px solid rgba(86, 86, 232, 0.5);
+}
+
+.status-pane {
+  border-top: 1px solid #888;
+  display: flex;
+  flex-flow: column;
+
+  .header {
+    background-color: #444;
+    color: #fff;
+    display: flex;
+    align-items: center;
+
+    &.has-draft { background-color: #37d; }
+    &.has-draft .draft { display: block; }
+
+    .draft {
+      display: none;
+      padding-left: 0.25em;
+      color: rgba(255,255,255,0.5);
+
+      .label { padding-left: 0.5em; }
+    }
+
+    .info {
+      flex: 1;
+      padding: 0.5em;
+    }
+  }
+}

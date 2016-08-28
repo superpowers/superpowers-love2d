@@ -5,9 +5,21 @@ let projectClient: SupClient.ProjectClient;
 let editor: TextEditorWidget;
 let asset: LuaAsset;
 
-socket = SupClient.connect(SupClient.query.project);
-socket.on("welcome", onWelcome);
-socket.on("disconnect", SupClient.onDisconnected);
+SupClient.i18n.load([{ root: `${window.location.pathname}/../..`, name: "scriptEditor" }], () => {
+  socket = SupClient.connect(SupClient.query.project);
+  socket.on("welcome", onWelcome);
+  socket.on("disconnect", SupClient.onDisconnected);
+});
+
+const statusPaneHeader = document.querySelector(".status-pane .header");
+const statusPaneSaveButton = statusPaneHeader.querySelector(".save") as HTMLButtonElement;
+const statusPaneInfo = statusPaneHeader.querySelector(".info");
+
+statusPaneSaveButton.addEventListener("click", (event: MouseEvent) => {
+  event.preventDefault();
+  event.stopPropagation();
+  applyDraftChanges();
+});
 
 function onWelcome(clientId: string) {
   projectClient = new SupClient.ProjectClient(socket);
@@ -24,14 +36,15 @@ function onWelcome(clientId: string) {
 function onAssetReceived(assetId: string, theAsset: LuaAsset) {
   asset = theAsset;
   editor.setText(asset.pub.draft);
+  statusPaneInfo.textContent = SupClient.i18n.t("scriptEditor:ready");
 }
 
 function onAssetEdited(assetId: string, command: string, ...args: any[]) {
   if (command === "editText") {
-    // errorPaneStatus.classList.add("has-draft");
+    statusPaneHeader.classList.add("has-draft");
     editor.receiveEditText(args[0]);
   } else if (command === "applyDraftChanges") {
-    // errorPaneStatus.classList.remove("has-draft");
+    statusPaneHeader.classList.remove("has-draft");
   }
 }
 
@@ -57,5 +70,13 @@ function onSendOperation(operation: OperationData) {
 }
 
 function applyDraftChanges() {
-  socket.emit("edit:assets", SupClient.query.asset, "applyDraftChanges", (err: string) => { if (err != null) { alert(err); SupClient.onDisconnected(); }});
+  statusPaneSaveButton.disabled = true;
+  statusPaneSaveButton.textContent = SupClient.i18n.t("common:states.saving");
+
+  socket.emit("edit:assets", SupClient.query.asset, "applyDraftChanges", (err: string) => {
+    if (err != null) { alert(err); SupClient.onDisconnected(); return; }
+
+    statusPaneSaveButton.disabled = false;
+    statusPaneSaveButton.textContent = SupClient.i18n.t("common:actions.applyChanges");
+  });
 }

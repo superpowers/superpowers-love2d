@@ -11,7 +11,7 @@ import * as dummy_fs from "fs";
 let serverRequire = require;
 
 let fs: typeof dummy_fs;
-if ((<any>global).window == null) {
+if ((global as any).window == null) {
   fs = serverRequire("fs");
 }
 
