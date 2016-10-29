@@ -1,9 +1,8 @@
-/// <reference path="../../../../typings/tsd.d.ts" />
-/// <reference path="../../../../SupClient/typings/SupApp.d.ts" />
+/// <reference path="../../../SupClient/typings/SupApp.d.ts" />
 
 import * as async from "async";
 import * as querystring from "querystring";
-import supFetch from "../../../../SupClient/src/fetch";
+import supFetch from "../../../SupClient/src/fetch";
 import * as path from "path";
 
 const statusElt = document.querySelector(".status") as HTMLDivElement;
