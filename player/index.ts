@@ -2,7 +2,7 @@
 
 import * as async from "async";
 import * as querystring from "querystring";
-import supFetch from "../../../SupClient/src/fetch";
+import supFetch from "../../../SupClient/fetch";
 import * as path from "path";
 
 const statusElt = document.querySelector(".status") as HTMLDivElement;
