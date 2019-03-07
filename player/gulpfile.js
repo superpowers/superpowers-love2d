@@ -1,15 +1,17 @@
-var gulp = require("gulp");
+"use strict";
+
+const gulp = require("gulp");
 
 // TypeScript
-var ts = require("gulp-typescript");
-var tsProject = ts.createProject("tsconfig.json");
-var tslint = require("gulp-tslint");
+const ts = require("gulp-typescript");
+const tsProject = ts.createProject("./tsconfig.json");
+const tslint = require("gulp-tslint");
 
-gulp.task("typescript", function() {
-  var failed = false;
-  var tsResult = tsProject.src()
-    .pipe(tslint())
-    .pipe(tslint.report("prose", { emitError: true }))
+gulp.task("typescript", () => {
+  let failed = false;
+  const tsResult = tsProject.src()
+    .pipe(tslint({ formatter: "prose" }))
+    .pipe(tslint.report({ emitError: true }))
     .on("error", (err) => { throw err; })
     .pipe(tsProject())
     .on("error", () => { failed = true; })
@@ -18,13 +20,13 @@ gulp.task("typescript", function() {
 });
 
 // Browserify
-var browserify = require("browserify");
-var source = require("vinyl-source-stream");
-gulp.task("browserify", [ "typescript" ],function() {
-  var bundler = browserify("./index.js");
+const browserify = require("browserify");
+const source = require("vinyl-source-stream");
+gulp.task("browserify", () => {
+  const bundler = browserify("./index.js");
   function bundle() { return bundler.bundle().pipe(source("index.js")).pipe(gulp.dest("../public")); }
   return bundle();
 });
 
 // All
-gulp.task("default", [ "typescript", "browserify" ]);
+gulp.task("default", gulp.series("typescript", "browserify"));

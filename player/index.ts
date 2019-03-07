@@ -54,18 +54,6 @@ function onLocateLoveClick(event: Event) {
   });
 }
 
-interface Project {
-  name: string;
-  assets: Entry[];
-}
-
-interface Entry {
-  id: string;
-  name: string;
-  type: string;
-  children?: any[];
-}
-
 function downloadGame() {
   statusElt.textContent = "Downloading game...";
 
@@ -86,7 +74,7 @@ function downloadGame() {
   });
 }
 
-function downloadFile(filePath: string, callback: ErrorCallback) {
+function downloadFile(filePath: string, callback: (error: Error) => void) {
   const inputPath = `${window.location.origin}${buildPath}files/${filePath}`;
   const outputPath = path.join(tempFolderPath, filePath);
 
