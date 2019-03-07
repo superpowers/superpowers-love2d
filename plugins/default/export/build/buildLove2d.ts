@@ -7,6 +7,7 @@ let entriesSubscriber: SupClient.EntriesSubscriber;
 let entries: SupCore.Data.Entries;
 
 let settings: Love2dBuildSettings;
+let projectWindowId: number;
 
 const progress = { index: 0, total: 0, errors: 0 };
 const statusElt = document.querySelector(".status");
@@ -24,9 +25,9 @@ function loadPlugins(callback: Function) {
   }, () => { callback(); });
 }
 
-export default function build(socket: SocketIOClient.Socket, theSettings: Love2dBuildSettings) {
-  console.log("build");
+export default function build(socket: SocketIOClient.Socket, theSettings: Love2dBuildSettings, theProjectWindowId: number) {
   settings = theSettings;
+  projectWindowId = theProjectWindowId;
 
   loadPlugins(() => {
     projectClient = new SupClient.ProjectClient(socket);
@@ -59,10 +60,12 @@ function updateProgress() {
 
   if (progress.index < progress.total) {
     statusElt.textContent = SupClient.i18n.t("builds:love2d.progress", { path: settings.outputFolder, index: progress.index, total: progress.total });
-  } else if (progress.errors > 0) {
-    statusElt.textContent = SupClient.i18n.t("builds:love2d.doneWithErrors", { path: settings.outputFolder, total: progress.total, errors: progress.errors });
   } else {
-    statusElt.textContent = SupClient.i18n.t("builds:love2d.done", { path: settings.outputFolder, total: progress.total });
+    statusElt.textContent = progress.errors > 0 ?
+      SupClient.i18n.t("builds:love2d.doneWithErrors", { path: settings.outputFolder, total: progress.total, errors: progress.errors }) :
+      SupClient.i18n.t("builds:love2d.done", { path: settings.outputFolder, total: progress.total });
+
+    SupApp.sendMessage(projectWindowId, "build-finished");
   }
 }
 
